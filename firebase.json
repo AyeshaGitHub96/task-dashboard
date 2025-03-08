@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public", git add firebase.json
+    "public": "dist/task-dashboard",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -14,3 +14,4 @@
     ]
   }
 }
+
