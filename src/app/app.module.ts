@@ -1,40 +1,29 @@
+// src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar'; // If using a toolbar
-
-import { RouterModule } from '@angular/router';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-import { TaskCreatorComponent } from './task-creator/task-creator.component';  // Example component
-import { TaskEditorComponent } from './task-editor/task-editor.component';      // Example component
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { environment } from 'src/environments/environment';
+import { initializeApp } from '@angular/fire/app';
+import { TaskTrackerComponent } from './components/task-tracker/task-tracker.component';
 import { TaskCreatorComponent } from './components/task-creator/task-creator.component';
-
-const routes: Routes = [
-  { path: 'task-creator', component: TaskCreatorComponent },
-  { path: 'task-editor', component: TaskEditorComponent },
-  { path: '', redirectTo: '/task-creator', pathMatch: 'full' },  // Default route
-];
+import { TaskEditorComponent } from './components/task-editor/task-editor.component';
+import { AppRoutingModule } from './app-routing.module';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TaskCreatorComponent,
-    TaskEditorComponent],
+  declarations: [TaskTrackerComponent, TaskCreatorComponent, TaskEditorComponent],
   imports: [
     BrowserModule,
-    MatSidenavModule,
-    MatListModule,
-    MatToolbarModule,
-    RouterModule.forRoot(routes),
-
+    AppRoutingModule,
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase()),
+    provideStorage(() => getStorage()),
+    initializeApp(environment.firebaseConfig), // Initialize Firebase app
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [TaskTrackerComponent],
 })
-export class AppModule { }
+export class AppModule {}
