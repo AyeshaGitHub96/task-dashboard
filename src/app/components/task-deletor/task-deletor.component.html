@@ -1,0 +1,12 @@
+<p>task-deletor works!</p>
+<mat-card class="task-delete">
+  <mat-card-header>
+    <mat-card-title>Delete Task</mat-card-title>
+  </mat-card-header>
+
+  <div class="delete-content">
+    <p>Are you sure you want to delete this task?</p>
+    <button mat-raised-button color="warn" (click)="confirmDelete()">Delete</button>
+    <button mat-raised-button (click)="cancelDelete()">Cancel</button>
+  </div>
+</mat-card>

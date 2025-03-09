@@ -1,0 +1,38 @@
+<p>task-tracker works!</p>
+<mat-card class="task-card">
+  <mat-card-header>
+    <mat-card-title>Task Tracker</mat-card-title>
+  </mat-card-header>
+
+  <mat-form-field class="filter-form">
+    <mat-label>Filter Tasks</mat-label>
+    <mat-select [(ngModel)]="filterStatus">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="pending">Pending</mat-option>
+      <mat-option value="completed">Completed</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-table [dataSource]="tasks | async">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Task Name </mat-header-cell>
+      <mat-cell *matCellDef="let task"> {{task.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let task"> {{task.status}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let task">
+        <button mat-button (click)="editTask(task)">Edit</button>
+        <button mat-button (click)="deleteTask(task)">Delete</button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-card>
